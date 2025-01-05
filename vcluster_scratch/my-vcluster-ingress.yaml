@@ -4,12 +4,13 @@ metadata:
   name: my-vcluster-ingress
   namespace: team-x
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod" # Use your correct cluster issuer name
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
+  ingressClassName: nginx  # Explicitly specify the ingress class
   rules:
-  - host: my-vcluster.navicore.tech # Replace with your actual domain
+  - host: my-vcluster.navicore.tech
     http:
       paths:
       - path: /
@@ -23,4 +24,3 @@ spec:
   - hosts:
     - my-vcluster.navicore.tech
     secretName: my-vcluster-tls
-

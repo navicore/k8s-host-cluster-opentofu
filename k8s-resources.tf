@@ -15,12 +15,20 @@ provider "helm" {
 
 resource "helm_release" "nginx_ingress" {
   name       = "ingress-nginx"
-  repository = "https://kubernetes.github.io/ingress-nginx"
-  chart      = "ingress-nginx"
-  version    = "4.10.1"  # Use the latest stable version
   namespace  = "ingress-nginx"
+  chart      = "ingress-nginx"
+  repository = "https://kubernetes.github.io/ingress-nginx"
+  version    = "4.10.1"
 
-  create_namespace = true
+  set {
+    name  = "controller.extraArgs.enable-ssl-chain-completion"
+    value = "true"
+  }
+
+  set {
+    name  = "controller.service.type"
+    value = "LoadBalancer"
+  }
 }
 
 resource "helm_release" "cert_manager" {
