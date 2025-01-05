@@ -20,10 +20,17 @@ provider "kubernetes" {
   config_path = "${path.module}/kubeconfig.yaml"
 }
 
+resource "local_file" "kubeconfig" {
+  content  = digitalocean_kubernetes_cluster.host_cluster.kube_config[0].raw_config
+  filename = "${path.module}/kubeconfig.yaml"
+}
+
 resource "kubernetes_storage_class" "do_block_storage" {
   metadata {
     name = "do-block-storage"
   }
 
   storage_provisioner = "dobs.csi.digitalocean.com"
+
+  depends_on = [local_file.kubeconfig]
 }

@@ -1,12 +1,12 @@
 
 ```
-
-terraform init
+tofu init
 
 echo 'do_token = "your-digitalocean-api-token"' > terraform.tfvars
 
-terraform plan
+tofu plan
 
-terraform apply
+tofu apply -target=local_file.kubeconfig
+tofu apply
 ```
 
