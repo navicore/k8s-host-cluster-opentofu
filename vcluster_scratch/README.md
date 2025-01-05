@@ -12,7 +12,7 @@ Create VCluster
 ```
 vcluster create my-vcluster --namespace team-x
 ```
-Cancel the port-forwarding Ctl-C 
+Cancel the port-forwarding Ctl-C
 
 Switch back to the host context
 ```
