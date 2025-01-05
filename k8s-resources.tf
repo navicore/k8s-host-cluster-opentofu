@@ -7,16 +7,6 @@ resource "local_file" "kubeconfig" {
   filename = "${path.module}/kubeconfig.yaml"
 }
 
-resource "kubernetes_storage_class" "do_block_storage" {
-  metadata {
-    name = "do-block-storage"
-  }
-
-  storage_provisioner = "dobs.csi.digitalocean.com"
-
-  depends_on = [local_file.kubeconfig]
-}
-
 provider "helm" {
   kubernetes {
     config_path = "${path.module}/kubeconfig.yaml"
