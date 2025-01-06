@@ -1,3 +1,8 @@
+WARNING this is bad - the docs for vcluster are terrible.  it seems like what I
+want to do requires installing their PaaS stuff that can manage all cert
+managers - that makes sense whereas the tutorials are nonsense and suggest
+magic.
+
 
 ```
 kubectl -n ingress-nginx get service
@@ -20,6 +25,7 @@ kubectl config use-context <WHATEVER THE HOST IS>
 ```
 
 ```
+kubectl apply -f cluster-issuer.yaml
 kubectl apply -f my-vcluster-ingress.yaml
 kubectl get ingress -n team-x
 kubectl get svc -n ingress-nginx
