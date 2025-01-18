@@ -3,7 +3,7 @@ provider "digitalocean" {
 }
 
 resource "digitalocean_kubernetes_cluster" "host_cluster" {
-  name    = "vcluster-host"
+  name    = "navinet"
   region  = "sfo2"  # Change to your preferred region
   version = "1.31.1-do.5"
 
@@ -15,3 +15,9 @@ resource "digitalocean_kubernetes_cluster" "host_cluster" {
     max_nodes   = 4
   }
 }
+
+resource "local_file" "kubeconfig" {
+  content  = digitalocean_kubernetes_cluster.host_cluster.kube_config[0].raw_config
+  filename = "${path.module}/kubeconfig.yaml"
+}
+

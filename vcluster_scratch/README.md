@@ -1,7 +1,6 @@
-WARNING this is bad - the docs for vcluster are terrible.  it seems like what I
-want to do requires installing their PaaS stuff that can manage all cert
-managers - that makes sense whereas the tutorials are nonsense and suggest
-magic.
+WARNING this does not work - the docs for vcluster are lacking.  It seems like
+what I want to do requires installing their PaaS/platform stuff that can manage
+all cert managers.  Will revisit this...
 
 
 ```
