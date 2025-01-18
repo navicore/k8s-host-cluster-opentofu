@@ -4,7 +4,7 @@ Setup
 ```
 tofu init
 
-echo 'do_token = "your-digitalocean-api-token"' > terraform.tfvars
+#echo 'do_token = "your-digitalocean-api-token"' > terraform.tfvars
 
 ./create.sh
 
