@@ -93,6 +93,10 @@ resource "aws_eks_node_group" "default" {
 
 # Save kubeconfig to a file
 resource "local_file" "kubeconfig" {
-  content  = aws_eks_cluster.host_cluster.kubeconfig
+  content  = templatefile("${path.module}/kubeconfig.tpl", {
+    cluster_name = aws_eks_cluster.host_cluster.name
+    endpoint     = aws_eks_cluster.host_cluster.endpoint
+    ca_data      = base64decode(aws_eks_cluster.host_cluster.certificate_authority[0].data)
+  })
   filename = "${path.module}/kubeconfig.yaml"
 }
