@@ -1,28 +1,9 @@
-create cluster
-=============
+Reproducible Kubernetes
+==========
 
-```
-tofu init
+Automation for ephemeral k8s environments on:
 
-echo 'do_token = "your-digitalocean-api-token"' > terraform.tfvars
-echo 'letsencrypt_email = "you@yourdomain.com"' >> terraform.tfvars
+* Digital Ocean
+* AWS (EKS) TODO
 
-./create.sh
-
-# tofu plan -target=local_file.kubeconfig
-# tofu apply -target=local_file.kubeconfig -auto-approve
-# tofu plan
-# tofu apply -auto-approve
-```
-
-delete cluster
-=============
-
-```
-./destroy.sh
-
-# kubectl --kubeconfig kubeconfig.yaml delete storageclass do-block-storage
-# tofu destroy -auto-approve
-
-```
 
