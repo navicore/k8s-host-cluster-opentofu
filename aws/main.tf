@@ -91,12 +91,33 @@ resource "aws_eks_node_group" "default" {
   ami_type       = "AL2_x86_64"
 }
 
-# Save kubeconfig to a file
 resource "local_file" "kubeconfig" {
-  content  = templatefile("${path.module}/kubeconfig.tpl", {
-    cluster_name = aws_eks_cluster.host_cluster.name
-    endpoint     = aws_eks_cluster.host_cluster.endpoint
-    ca_data      = base64decode(aws_eks_cluster.host_cluster.certificate_authority[0].data)
-  })
+  content = <<EOT
+apiVersion: v1
+clusters:
+- cluster:
+    server: ${aws_eks_cluster.host_cluster.endpoint}
+    certificate-authority-data: ${aws_eks_cluster.host_cluster.certificate_authority[0].data}
+  name: ${aws_eks_cluster.host_cluster.name}
+contexts:
+- context:
+    cluster: ${aws_eks_cluster.host_cluster.name}
+    user: ${aws_eks_cluster.host_cluster.name}
+  name: ${aws_eks_cluster.host_cluster.name}
+current-context: ${aws_eks_cluster.host_cluster.name}
+kind: Config
+preferences: {}
+users:
+- name: ${aws_eks_cluster.host_cluster.name}
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      command: aws
+      args:
+      - eks
+      - get-token
+      - --cluster-name
+      - ${aws_eks_cluster.host_cluster.name}
+EOT
   filename = "${path.module}/kubeconfig.yaml"
 }
