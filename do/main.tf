@@ -5,7 +5,7 @@ provider "digitalocean" {
 resource "digitalocean_kubernetes_cluster" "host_cluster" {
   name    = "navinet"
   region  = "sfo2"  # Change to your preferred region
-  version = "1.31.1-do.5"
+  version = "1.32.1-do.0"
 
   node_pool {
     name        = "default-pool"
